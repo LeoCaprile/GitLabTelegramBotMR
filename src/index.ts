@@ -7,7 +7,7 @@ dotenv.config()
 const app: express.Application = express()
 
 const BOT_URL = process.env.BOT_URL+'/sendMessage'
-const PORT = 3500
+const PORT = process.env.PORT || 3000
 
 app.use(json())
 
