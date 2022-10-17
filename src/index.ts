@@ -9,6 +9,18 @@ const app: express.Application = express()
 const BOT_URL = process.env.BOT_URL+'/sendMessage'
 const PORT = process.env.PORT || 3000
 
+const MERGE_ACTION: {[key:string]:string} = {
+    open: 'abierto',
+    reopen: 're-abierto',
+    approved: 'aprobado',
+    closed: 'cerrado',
+    update: 'actualizado',
+    unapproved: 'desaprobado',
+    approval: 'aprobado',
+    unapproval: 'desaprobado',
+    merge: 'mergeado'
+}
+
 app.use(json())
 
 app.get('/', (req,res) => {
@@ -22,8 +34,8 @@ app.post('/', (req, res) => {
         return;
     }
     const gitlabMRURL = req.body.object_attributes.url
-    const gitlabMRAction = req.body.object_attributes.action
-    const action = (gitlabMRAction === 'reopen' || gitlabMRAction === 'open')? 'abierto' : 'cerrado'
+    const gitlabMRAction:string = req.body.object_attributes.action
+    const action:string = MERGE_ACTION[gitlabMRAction]
     const userName = req.body.user.name
     try{
         axios.post(BOT_URL,null,{params:
