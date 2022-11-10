@@ -51,4 +51,19 @@ app.post('/', (req, res) => {
     res.status(201).send('OK')
 })
 
+app.post('/cleanServer', (req,res) => {
+    try{
+        axios.post(BOT_URL,null,{params:
+            {
+                chat_id:process.env.CHAT_ID,
+                text: `<b>Realizando limpieza en el servidor....</b>`,
+                parse_mode: 'html'
+            }
+        })
+    } catch(e){
+        console.log(e)
+    }
+    res.status(201).send('OK')
+})
+
 app.listen(PORT)
