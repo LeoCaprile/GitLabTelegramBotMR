@@ -46,6 +46,7 @@ app.post('/', (req, res) => {
             }
         })
     } catch(e){
+    res.status(500).send('OK')
         
     }
     res.status(201).send('OK')
