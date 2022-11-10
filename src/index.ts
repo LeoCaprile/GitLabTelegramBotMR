@@ -7,7 +7,7 @@ dotenv.config()
 const app: express.Application = express()
 
 const BOT_URL = process.env.BOT_URL+'/sendMessage'
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 3001
 
 const MERGE_ACTION: {[key:string]:string} = {
     open: 'abierto',
@@ -60,10 +60,13 @@ app.post('/cleanServer', (req,res) => {
                 parse_mode: 'html'
             }
         })
+    res.status(200).send('OK')
+
     } catch(e){
         console.log(e)
+    res.status(500).send('OK')
+
     }
-    res.status(201).send('OK')
 })
 
-app.listen(PORT)
+app.listen(PORT, ()=> {console.log('Listening on port ', PORT)})
